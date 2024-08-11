@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1.Name" xml:space="preserve">
+    <value>金币</value>
+  </data>
+  <data name="1.Quote" xml:space="preserve">
+    <value>"咔～磬～"</value>
+  </data>
+  <data name="1.Description" xml:space="preserve">
+    <value>这个世界的基本货币。
+
+你可以通过击败敌人，随机事件，和宝箱内获得金币。你可以用金钱从商人处购买商品，或是购买牧师的服务，还可以用于贿赂。</value>
+  </data>
+  <data name="non-battle" xml:space="preserve">
+    <value>无法在战斗中使用</value>
+  </data>
+  <data name="2.Name" xml:space="preserve">
+    <value>玛娜瓶</value>
+  </data>
+  <data name="2.Quote" xml:space="preserve">
+    <value>"我没找到保险套的图标 qwq"</value>
+  </data>
+  <data name="2.Description" xml:space="preserve">
+    <value>被装在橡胶容器中的精液。
+
+白浊法师的特殊道具。她们每次攻击的的时候都需要消耗一个玛娜瓶。
+
+她们可以从敌人或者自己的身体中制作新的玛娜瓶。</value>
+  </data>
+  <data name="3.Name" xml:space="preserve">
+    <value>粘稠蜂蜜</value>
+  </data>
+  <data name="3.Description" xml:space="preserve">
+    <value>这是从能产生媚药的植物的花粉中精炼出的蜂蜜。
+
+它非常黏，所以你可以用它来拖慢敌人的速度。你也可以喝下它，回复自己的 HP，但自己会微微发情。</value>
+  </data>
+  <data name="3.1.Task" xml:space="preserve">
+    <value>但是如果敌人的攻击需要你用到润滑液，在你的润滑液中混入部分蜂蜜。</value>
+  </data>
+  <data name="3.1.Effect" xml:space="preserve">
+    <value>你将它扔向敌人： 敌人骰子点数减少 1 点。</value>
+  </data>
+  <data name="3.2.Task" xml:space="preserve">
+    <value>喝下 10 mL 蜂蜜。你下一回合的 bpm 将增加 20 点。</value>
+  </data>
+  <data name="3.2.Effect" xml:space="preserve">
+    <value>你喝下了它： 回复 5 点生命值。</value>
+  </data>
+  <data name="4.Name" xml:space="preserve">
+    <value>浓缩媚药</value>
+  </data>
+  <data name="4.Quote" xml:space="preserve">
+    <value>"只需一滴，让你像水龙头一样射个不停，呵呵～"</value>
+  </data>
+  <data name="4.Description" xml:space="preserve">
+    <value>从产生媚药的植物中提取的媚药精华。
+
+你可以像你的敌人投掷它，这会减少敌人的 HP，但同时也会让他们下个回合的进攻更加猛烈。</value>
+  </data>
+  <data name="4.1.Effect" xml:space="preserve">
+    <value>你将它扔向敌人：敌人受到 3 点伤害。</value>
+  </data>
+  <data name="4.1.Task" xml:space="preserve">
+    <value>下个回合敌人的骰子点数+2。且你受到的伤害增加 1点。</value>
+  </data>
+</root>

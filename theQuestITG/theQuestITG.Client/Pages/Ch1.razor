@@ -1,0 +1,213 @@
+﻿@page "/ch1"
+@inject IStringLocalizer<Characters> CLocalizer
+@inject IStringLocalizer<Enemies> ELocalizer
+@inject IStringLocalizer<Interface> Localizer
+@using System.Text.Json
+@using theQuestITG.Client.Shared
+@inject IJSRuntime JS
+@inject IDialogService DialogService
+@inject HttpClient Http
+@inject ISnackbar Snackbar
+
+<PageTitle>The Quest Chapter 1</PageTitle>
+
+<MudPaper Elevation="4" Class="pa-4" MaxWidth="577px">
+    <div style="position: relative; width: 545px; height: 539px; background-image:url(images/map1.png)">
+        @if (blocks == null)
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+        }
+        else
+        {
+            @foreach (var block in blocks)
+            {
+                string style = $"position: absolute; top: {block.y}px; left: {block.x}px; ";
+                int id = block.id;
+                if (block.type == "Battle")
+                {
+                    <MudIconButton Variant="Variant.Filled" style="@style" Icon="@Icons.Material.Outlined.FitnessCenter" Size="Size.Small" Color="Color.Error" OnClick="@(() => MoveStep(id, "Battle"))" Disabled="@block.disability" />
+                }
+                if (block.type == "Boss")
+                {
+                    <MudIconButton Variant="Variant.Filled" style="@style" Icon="@Icons.Custom.Uncategorized.Radioactive" Size="Size.Large" Color="Color.Error" OnClick="@(() => MoveStep(id, "Boss"))" Disabled="@block.disability" />
+                }
+                if (block.type == "Event")
+                {
+                    <MudIconButton Variant="Variant.Filled" style="@style" Icon="@Icons.Material.Outlined.Info" Color="Color.Info" Size="Size.Small" OnClick="@(() => MoveStep(id, "Event"))" Disabled="@block.disability" />
+                }
+                if (block.type == "Treasure")
+                {
+                    <MudIconButton Variant="Variant.Filled" style="@style" Icon="@Icons.Material.Outlined.CurrencyBitcoin" Color="Color.Warning" Size="Size.Small" OnClick="@(() => MoveStep(id,"Treasure"))" Disabled="@block.disability" />
+                }
+                if (block.type == "Start")
+                {
+                    <MudButton Variant="Variant.Filled" style="@style" Color="Color.Primary" Size="Size.Small" OnClick="@(() => MoveStep(id,"Start"))">Start</MudButton>
+                }
+                if (block.type == "Exit")
+                {
+                    <MudButton Variant="Variant.Filled" style="@style" Color="Color.Primary" Size="Size.Small" OnClick="@(() => MoveStep(id,"Exit"))" Disabled="@block.disability">Exit</MudButton>
+                }
+            }
+            <svg style="margin-top:18px; margin-left:18px" width="545" height="539">
+                @foreach (var block in blocks)
+                {
+                    foreach (int i in block.connect)
+                    {
+                        if (i != 100)
+                        {
+                            <line x1="@block.x" y1="@block.y" x2="@blocks[i].x" y2="@blocks[i].y" stroke="white" stroke-width="4" />
+                        }
+                    }
+                }
+            </svg>
+        }
+
+    </div>
+</MudPaper>
+
+
+@code {
+    public List<Block> blocks;
+
+    public ItemNumberInfo itemCount = new();
+    int nowOnBlock = 0;
+
+    Random dice = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        string response = await Http.GetStringAsync("https://localhost:7026/assets/maps.json");
+        blocks = JsonSerializer.Deserialize<BlockList>(response).Ch1Map;
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadFromLocalStorage();
+        }
+    }
+
+    private async Task LoadFromLocalStorage()
+    {
+        ItemNumber itm3 = new(), itm4 = new();
+        itm3.id = 3;
+        itm3.number = 1;
+        itemCount.itemNumbers.Add(itm3);
+        itm4.id = 4;
+        itm4.number = 4;
+        itemCount.itemNumbers.Add(itm4);
+        string write = JsonSerializer.Serialize(itemCount);
+        await JS.InvokeAsync<string>("localStorageHelper.setItem", "ItemCount", write);
+    }
+
+    public void MoveStep(int id, string type)
+    {
+        bool ok = false;
+        if (id != 0)
+        {
+            foreach (int i in blocks[nowOnBlock].connect)
+            {
+                if (id == i) ok = true;
+            }
+            if (!ok)
+            {
+                foreach (int i in blocks[id].connect)
+                {
+                    if (nowOnBlock == i) ok = true;
+                }
+            }
+            if (ok)
+            {
+                blocks[nowOnBlock].disability = false;
+                blocks[id].disability = true;
+                nowOnBlock = id;
+
+                switch (type)
+                {
+                    case "Battle":
+                        Battle();
+                        break;
+
+                    case "Event":
+
+                        break;
+
+                    case "Boss":
+
+                        break;
+
+                    case "Treasure":
+
+                        break;
+
+                    case "Exit":
+
+                        break;
+
+                }
+
+                StateHasChanged();
+            }
+            else
+            {
+                Snackbar.Add(Localizer["NoFlying"], Severity.Error);
+            }
+
+        }
+        else
+        {
+            Snackbar.Add(Localizer["NoStepBack"], Severity.Error);
+        }
+    }
+
+    private async void Battle()
+    {
+
+        //Need to change!
+
+        int eid = 1;
+        var parameters = new DialogParameters<BattleDialog>
+        {
+            { x => x.EnemyID, eid},
+        };
+
+        var options = new DialogOptions() { CloseButton = false, FullScreen = true };
+
+        var dialog = await DialogService.ShowAsync<BattleDialog>(@ELocalizer[$"{eid}.Name"], parameters, options);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+
+        }
+    }
+
+    public class Block
+    {
+        public int id { get; set; }
+
+        public int x { get; set; }
+
+        public int y { get; set; }
+
+        public string type { get; set; }
+
+        public int[] connect { get; set; }
+
+        public bool disability { get; set; } = false;
+    }
+
+    public class BlockList
+    {
+        public List<Block> Ch1Map { get; set; }
+    }
+
+    public class ItemNumberInfo
+    {
+        public List<ItemNumber> itemNumbers { get; set; } = new();
+    }
+}
+
+

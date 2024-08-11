@@ -1,0 +1,402 @@
+﻿@using System.Text.Json
+@inject IStringLocalizer<Characters> CLocalizer
+@inject IStringLocalizer<Enemies> ELocalizer
+@inject IStringLocalizer<Interface> Localizer
+@inject IStringLocalizer<Items> ILocalizer
+@inject IJSRuntime JS
+@inject HttpClient Http
+
+<MudDialog>
+    <DialogContent>
+        @if (id != 0 && enemiesList != null)
+        {
+            string CImg = $"images/Characters/{id}.1.png";
+            string EImg = $"images/Enemies/{EnemyID}.1.png";
+            string EWImg = $"images/Enemies/{EnemyID}.2.png";
+            string EGImg = $"images/Enemies/{EnemyID}.3.png";
+            string ECImg = $"images/Enemies/{EnemyID}.4.png";
+
+            <MudGrid Class="pa-4">
+                <MudItem xs="5" sm="5" md="5">
+                    <MudCard Elevation="4">
+                        <MudCardMedia Image="@CImg" />
+                        <MudCardContent>
+                            <MudStack>
+                                <MudText Typo="Typo.h5">@CLocalizer[$"{id}.Name"]</MudText>
+                                <MudText Typo="Typo.body2">@CLocalizer[$"{id}.Description"]</MudText>
+                                <MudStack Row="true" >
+                                    <MudItem xs="10" style="height:100%">
+                                        <MudProgressLinear Max="maxHP" Min="0" Color="Color.Error" Value="@hp"/>
+                                    </MudItem>
+                                    <MudItem xs="2" style="height:100%">
+                                        <MudText Style="font-size: xx-small">@maxHP</MudText>
+                                    </MudItem>
+                                </MudStack>
+                            </MudStack>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudSpacer />
+                <MudItem xs="5" sm="5" md="5">
+                    <MudCard Elevation="4">
+                        <MudCardMedia Image="@EImg" />
+                        <MudCardContent>
+                            <MudStack>
+                                <MudText Typo="Typo.h5">@ELocalizer[$"{EnemyID}.Name"]</MudText>
+                                <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Description"]</MudText>
+                                <MudStack Row="true">
+                                    <MudItem xs="10" style="height:100%">
+                                        <MudProgressLinear Max="maxEHP" Min="0" Color="Color.Error" Value="@enemy.hp"/>
+                                    </MudItem>
+                                    <MudItem xs="2" style="height:100%">
+                                        <MudText Style="font-size: xx-small">@maxEHP</MudText>
+                                    </MudItem>
+                                </MudStack>
+                            </MudStack>
+                        </MudCardContent>
+                    </MudCard>
+                </MudItem>
+                <MudItem xs="6" sm="5" md="4">
+                    <MudCollapse Expanded="myRound">
+                        <MudStack>
+                            <MudPaper Elevation="4" Class="pa-4">
+                                <MudText Typo="Typo.h5">@CLocalizer[$"{id}.Weak.Name"]</MudText>
+                                <MudText Typo="Typo.body2">@CLocalizer[$"{id}.Weak.Task"]</MudText>
+                            </MudPaper>
+                            <MudPaper Elevation="4" Class="pa-4">
+                                <MudText Typo="Typo.h5">@CLocalizer[$"{id}.Good.Name"]</MudText>
+                                <MudText Typo="Typo.body2">@CLocalizer[$"{id}.Good.Task"]</MudText>
+                            </MudPaper>
+                            <MudPaper Elevation="4" Class="pa-4">
+                                <MudText Typo="Typo.h5">@CLocalizer[$"{id}.Crit.Name"]</MudText>
+                                <MudText Typo="Typo.body2">@CLocalizer[$"{id}.Crit.Task"]</MudText>
+                            </MudPaper>
+                        </MudStack>
+                    </MudCollapse>
+                    <MudCollapse Expanded="!myRound">
+                        <MudPaper Class="pa-4">
+                            <MudButton Class="pa-4" OnClick="Finish">Finish</MudButton>
+                            <MudButton OnClick="Metronome">Start</MudButton>
+                        </MudPaper>
+                    </MudCollapse>
+                </MudItem>
+                <MudItem xs="12" sm="12" md="4">
+                    <MudPaper Elevation="4" Class="pa-4">
+                        <MudStack Class="pa-4">
+                            @foreach (var i in itemList)
+                            {
+                                if (i.usage == "no" || i.usage == "non-battle") { continue; }
+                                if (i.number == 0) { continue; }
+                                string src = $"images/Items/{i.id}.png";
+                                <MudPaper Class="pa-4">
+                                    <MudStack>
+                                        <MudButton FullWidth="true" Variant="Variant.Text" Color="Color.Default" OnClick="@(() => itemExpand(i.id))">
+                                            <MudItem xs="4">
+                                                <MudImage Src="@src" Height="64" Width="64" />
+                                            </MudItem>
+                                            <MudItem xs="8">
+                                                <MudText>@ILocalizer[$"{i.id}.Name"]</MudText>
+                                            </MudItem>
+                                        </MudButton>
+                                        <MudCollapse Expanded="i.expanded">
+                                            <MudStack>
+                                                @if (i.quote == true)
+                                                {
+                                                    <MudText>@ILocalizer[$"{i.id}.Quote"]</MudText>
+                                                }
+                                                <MudText>@ILocalizer[$"{i.id}.Description"]</MudText>
+                                                @for (int c = 0; c < i.effect; c++)
+                                                {
+                                                    int t = c;
+                                                    <MudText>@ILocalizer[$"{i.id}.{t + 1}.Effect"]</MudText>
+                                                    <MudText>@ILocalizer[$"{i.id}.{t + 1}.Task"]</MudText>
+                                                    <MudButton Variant="Variant.Filled" Color="Color.Primary">Use</MudButton>
+                                                }
+                                            </MudStack>
+                                        </MudCollapse>
+                                    </MudStack>
+                                </MudPaper>
+                            }
+                        </MudStack>
+                    </MudPaper>
+                </MudItem>
+                <MudSpacer />
+                <MudItem xs="6" sm="5" md="4">
+                    <MudCollapse Expanded="!myRound">
+                        @if (rand == 1)
+                        {
+                            <MudCard Elevation="4">
+                                <MudCardMedia Image="@EWImg" />
+                                <MudCardContent>
+                                    <MudStack>
+                                        <MudText Typo="Typo.h5">@ELocalizer[$"{EnemyID}.Weak.Name"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Weak.Action"]</MudText>
+                                        <MudSpacer />
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Weak.Description"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Weak.Task"]</MudText>
+                                        <MudText Typo="Typo.body2">@Localizer["Attack"] @enemy.atk[0]</MudText>
+                                    </MudStack>
+                                </MudCardContent>
+                            </MudCard>
+                        }
+                        else if (rand == 2)
+                        {
+                            <MudCard Elevation="4">
+                                <MudCardMedia Image="@EGImg" />
+                                <MudCardContent>
+                                    <MudStack>
+                                        <MudText Typo="Typo.h5">@ELocalizer[$"{EnemyID}.Good.Name"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Good.Action"]</MudText>
+                                        <MudSpacer />
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Good.Description"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Good.Task"]</MudText>
+                                        <MudText Typo="Typo.body2">@Localizer["Attack"] @enemy.atk[1]</MudText>
+                                    </MudStack>
+                                </MudCardContent>
+                            </MudCard>
+                        }
+                        else
+                        {
+                            <MudCard Elevation="4">
+                                <MudCardMedia Image="@ECImg" />
+                                <MudCardContent>
+                                    <MudStack>
+                                        <MudText Typo="Typo.h5">@ELocalizer[$"{EnemyID}.Crit.Name"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Crit.Action"]</MudText>
+                                        <MudSpacer />
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Crit.Description"]</MudText>
+                                        <MudText Typo="Typo.body2">@ELocalizer[$"{EnemyID}.Crit.Task"]</MudText>
+                                        <MudText Typo="Typo.body2">@Localizer["Attack"] @enemy.atk[2]</MudText>
+                                    </MudStack>
+                                </MudCardContent>
+                            </MudCard>
+                        }
+                    </MudCollapse>
+                    <MudCollapse Expanded ="myRound">
+                        <MudPaper Class="pa-4">
+                            <MudText Class="pa-4">@Result</MudText>
+                            <MudButton OnClick="Finish">Finish</MudButton>
+                        </MudPaper>
+                    </MudCollapse>       
+                </MudItem>
+            </MudGrid>
+        }
+        else
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary" Disabled="@OnGoing" Variant="Variant.Filled" OnClick="Submit">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+
+<audio id="metronome-sound" src="sounds/tick2.wav" style="display: none" ></audio>
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public int EnemyID { get; set; }
+
+    public List<Enemy> enemiesList;
+
+    public List<Character> characterList;
+
+    public List<Item> itemList;
+
+    public List<ItemNumber> itemCount;
+
+    public bool isRendering = false, isInitialized = false, myRound = true;
+
+    public int id = 0, atk = 0, hp = 100, rand = 0, round = 1, maxHP = 100, maxEHP = 100;
+
+    public bool OnGoing = true;
+
+    public Random dice = new();
+
+    public Enemy enemy = new();
+
+    string Result = "Loading......";
+
+    private TaskCompletionSource<bool> _buttonClickedTcs, _JSONLoadedTcs;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            await LoadFromLocalStorage();
+            isRendering = true;
+
+            if (!isInitialized)
+            {
+                await WaitForLoaded();
+            }
+
+            foreach (var i in enemiesList)
+            {
+                if (i.id == EnemyID)
+                {
+                    enemy = i;
+                }
+            }
+
+            maxEHP = enemy.hp;
+            StateHasChanged();
+
+            if (isInitialized) MainBattle();
+
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string response = await Http.GetStringAsync("https://localhost:7026/assets/enemiesInfo.json");
+        enemiesList = JsonSerializer.Deserialize<EnemiesInfo>(response).Ch1Enemies;
+        response = await Http.GetStringAsync("https://localhost:7026/assets/itemsInfo.json");
+        itemList = JsonSerializer.Deserialize<itemsInfo>(response).items;
+        if (isRendering) JsonLoaded();
+        isInitialized = true;
+        if (isRendering) MainBattle();
+    }
+
+    private async Task LoadFromLocalStorage()
+    {
+        id = int.Parse(await JS.InvokeAsync<string>("localStorageHelper.getItem", "CharacterID"));
+        hp = int.Parse(await JS.InvokeAsync<string>("localStorageHelper.getItem", "CharacterHP"));
+        atk = int.Parse(await JS.InvokeAsync<string>("localStorageHelper.getItem", "CharacterATK"));
+        maxHP = int.Parse(await JS.InvokeAsync<string>("localStorageHelper.getItem", "MaxHP"));
+        var str = await JS.InvokeAsync<string>("localStorageHelper.getItem", "ItemCount");
+        itemCount = JsonSerializer.Deserialize<ItemNumberInfo>(str).itemNumbers;
+    }
+
+    private async void MainBattle()
+    {
+        foreach (var item1 in itemList)
+        {
+            var matchingItem2 = itemCount.FirstOrDefault(item2 => item2.id == item1.id);
+            if (matchingItem2 != null)
+            {
+                item1.number = matchingItem2.number;
+            }
+        }
+
+        StateHasChanged();
+
+        await Task.Delay(500);
+        for (; enemy.hp > 0 && hp > 0; round++)
+        {
+            rand = dice.Next(3) + 1;
+
+            if (round % 2 == 1)
+            {
+                int tatk = 0;
+                switch (rand)
+                {
+                    case 1:
+                        Result = Localizer["Weak"];
+                        if (atk % 2 == 1) tatk = atk / 2 + 1;
+                        else tatk = atk / 2;
+                        break;
+
+                    case 2:
+                        Result = Localizer["Good"];
+                        tatk = atk;
+                        break;
+
+                    case 3:
+                        Result = Localizer["Crit"];
+                        tatk = 2 * atk;
+                        break;
+                }
+                StateHasChanged();
+                await WaitForButtonClickAsync();
+                enemy.hp -= tatk;
+                if (hp > 0 && enemy.hp > 0) myRound = !myRound;
+                StateHasChanged();
+            }
+
+            if (round % 2 == 0)
+            {
+                int tatk = 0;
+                switch (rand)
+                {
+                    case 1:
+                        tatk = enemy.atk[0];
+                        break;
+
+                    case 2:
+                        tatk = enemy.atk[1];
+                        break;
+
+                    case 3:
+                        tatk = enemy.atk[2];
+                        break;
+                }
+                await WaitForButtonClickAsync();
+                await JS.InvokeVoidAsync("stopMetronome");
+                hp -= tatk;
+                if (hp > 0 && enemy.hp > 0) myRound = !myRound;
+                StateHasChanged();
+            }
+        }
+        await JS.InvokeVoidAsync("localStorageHelper.setItem", "CharacterHP", hp);
+        OnGoing = false;
+        StateHasChanged();
+    }
+
+    private async void Metronome()
+    {
+        await JS.InvokeVoidAsync("startMetronome", enemy.weak.metronome);
+    }
+
+    private Task WaitForButtonClickAsync()
+    {
+        _buttonClickedTcs = new TaskCompletionSource<bool>();
+        return _buttonClickedTcs.Task;
+    }
+
+    private Task WaitForLoaded()
+    {
+        _JSONLoadedTcs = new TaskCompletionSource<bool>();
+        return _JSONLoadedTcs.Task;
+    }
+
+    private void JsonLoaded()
+    {
+        _JSONLoadedTcs?.SetResult(true);
+    }
+
+    private void Finish()
+    {
+        _buttonClickedTcs?.SetResult(true);
+    }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+
+    public void itemExpand(int id)
+    {
+        itemList[id - 1].expanded = !itemList[id - 1].expanded;
+    }
+
+    public class EnemiesInfo
+    {
+        public List<Enemy> Ch1Enemies { get; set; }
+    }
+
+    public class CharactersInfo
+    {
+        public List<Character> characters { get; set; }
+    }
+
+    public class itemsInfo
+    {
+        public List<Item> items { get; set; }
+    }
+
+    public class ItemNumberInfo
+    {
+        public List<ItemNumber> itemNumbers { get; set; }
+    }
+}

@@ -1,0 +1,122 @@
+﻿@page "/ch0"
+@using System.Resources
+@using System.Text.Json
+@using theQuestITG.Client.Shared
+@inject HttpClient Http;
+@inject IStringLocalizer<Characters> CLocalizer
+@inject IStringLocalizer<Interface> Localizer
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject IJSRuntime JS
+@inject NavigationManager Navigation
+
+<PageTitle>The Quest Chapter 0</PageTitle>
+
+<MudContainer MaxWidth="MaxWidth.False">
+    <MudGrid>
+        @if (isInitialized)
+        {
+            for (int i = 1; i <= 12; i++)
+            {
+                string img = $"images/Characters/{i}.1.png";
+                string Name = $"{i}.Name";
+                string Description = $"{i}.Description";
+                int id = i;
+                <MudItem xs="12" sm="6" md="3">
+                    <MudCard Elevation="4">
+                        <MudCardMedia Image="@img" />
+                        <MudCardContent>
+                            <MudText Typo="Typo.h5">@CLocalizer[Name]</MudText>
+                            <MudText Typo="Typo.body2">@CLocalizer[Description]</MudText>
+                        </MudCardContent>
+                        <MudCardActions Class="pa-4">
+                            <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="@(() => Chosen(id))" Disabled="Chose">Choose</MudButton>
+                            <MudSpacer />
+                            <MudButton Variant="Variant.Text" Color="Color.Primary" OnClick="@(() => learnMore(id))">Learn More</MudButton>
+                        </MudCardActions>
+                    </MudCard>
+                </MudItem>
+            }
+        }
+        else
+        {
+            <MudProgressCircular Color="Color.Default" Indeterminate="true" />
+        }
+    </MudGrid>
+</MudContainer>
+
+@code {
+    private bool Chose = true;
+    public bool isInitialized = false;
+    List<Character> charactersList = new();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            isInitialized = true;
+            await LoadFromLocalStorage();
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadFromLocalStorage()
+    {
+        if (isInitialized)
+        {
+            string? id = await JS.InvokeAsync<string>("localStorageHelper.getItem", "CharacterID");
+            if (id == null)
+            {
+                Chose = false;
+            }
+            else
+            {
+                Snackbar.Add($"{Localizer["YouveChosen"]} {CLocalizer[$"{id}.Name"]}", Severity.Warning);
+                Navigation.NavigateTo("/ch1");
+            }
+        }
+    }
+
+    private async Task learnMore(int id)
+    {
+        var parameters = new DialogParameters<CharacterDetailDialog>
+        {
+            { x => x.ButtonText, "Choose" },
+            { x => x.ClothesSrc, $"images/Characters/{id}.2.jpg" },
+            { x => x.Pass1Src, $"images/Characters/{id}.3.jpg" },
+            { x => x.Pass2Src, $"images/Characters/{id}.4.jpg" },
+            { x => x.ContentID, id},
+            { x => x.Color, Color.Primary },
+            { x => x.IsChooseDisable, Chose }
+        };
+
+        var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+
+        var dialog = await DialogService.ShowAsync<CharacterDetailDialog>(@CLocalizer[$"{id}.Name"], parameters, options);
+        var result = await dialog.Result;
+
+        if(!result.Canceled)
+        {
+            Chosen(id);
+        }
+    }
+
+    private async void Chosen(int id)
+    {
+        Chose = true;
+        string response = await Http.GetStringAsync("https://localhost:7026/assets/charactersInfo.json");
+        charactersList = JsonSerializer.Deserialize<CharactersInfo>(response).characters;
+        await JS.InvokeVoidAsync("localStorageHelper.setItem", "CharacterID", id);
+        await JS.InvokeVoidAsync("localStorageHelper.setItem", "CharacterHP", charactersList[id].hp);
+        await JS.InvokeVoidAsync("localStorageHelper.setItem", "MaxHP", charactersList[id].hp);
+        await JS.InvokeVoidAsync("localStorageHelper.setItem", "CharacterATK", charactersList[id].atk);
+        Snackbar.Add($"{Localizer["YouChose"]} {CLocalizer[$"{id}.Name"]}", Severity.Success);
+        await Task.Delay(1000);
+        Navigation.NavigateTo("/ch1");
+    }
+
+    public class CharactersInfo
+    {
+        public List<Character> characters { get; set; }
+    }
+}

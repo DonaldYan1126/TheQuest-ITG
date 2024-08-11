@@ -1,0 +1,70 @@
+﻿@inherits LayoutComponentBase
+@inject IDialogService DialogService
+@inject IStringLocalizer<Characters> Localizer
+@inject IJSRuntime JS
+@using theQuestITG.Client.Shared
+
+<MudThemeProvider IsDarkMode="true" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudLayout>
+    <MudAppBar Elevation="2">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h5" Class="ml-3">The Quest - ITG</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.MoreVert" Color="Color.Inherit" OnClick="My" Edge="Edge.End" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent Class="mt-16 pa-4">
+        <MudContainer Class="mt-16 px-8">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
+
+@code {
+    private bool _drawerOpen = true;
+
+    private void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+
+
+    private async Task My()
+
+    {
+
+        string? id = await JS.InvokeAsync<string>("localStorageHelper.getItem", "CharacterID");
+        if(id!= null)
+        {
+            var parameters = new DialogParameters<MyDetailDialog>
+        {
+            { x => x.CharacterSrc, $"images/Characters/{id}.1.png" },
+            { x => x.ClothesSrc, $"images/Characters/{id}.2.jpg" },
+            { x => x.Pass1Src, $"images/Characters/{id}.3.jpg" },
+            { x => x.Pass2Src, $"images/Characters/{id}.4.jpg" },
+            { x => x.ContentID, id},
+            { x => x.Color, Color.Primary }
+        };
+
+            var options = new DialogOptions() { CloseButton = true, MaxWidth = MaxWidth.Large, FullWidth = true };
+            var dialog = await DialogService.ShowAsync<MyDetailDialog>(@Localizer[$"{id}.Name"], parameters, options);
+        }
+    }
+
+
+}
+
+

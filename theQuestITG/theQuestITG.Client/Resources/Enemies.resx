@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="1.Name" xml:space="preserve">
+    <value>强盗兄弟</value>
+  </data>
+  <data name="1.Description" xml:space="preserve">
+    <value>一对普通的盗贼兄弟想在森林中找些容易搞定的猎物。要小心，因为他们很容易制服你。</value>
+  </data>
+  <data name="1.Weak.Name" xml:space="preserve">
+    <value>强盗颜射</value>
+  </data>
+  <data name="1.Weak.Action" xml:space="preserve">
+    <value>他们仅仅是对着你自慰而已…</value>
+  </data>
+  <data name="1.Weak.Description" xml:space="preserve">
+    <value>强盗兄弟开始你面前自慰，他们凑在你身边，让你好好地吸入他们肉棒的气味。不一会后，他们射了，直接射在了你的脸上。</value>
+  </data>
+  <data name="1.Weak.Task" xml:space="preserve">
+    <value>准备好一小杯约 10 mL 的精液。将一根自慰棒吸在墙上合适高度位置，然后跪在前面，一边闻肉棒的气味一边开始以 60 bpm 的速度自慰。计时结束后让精液浇在你的脸上。</value>
+  </data>
+  <data name="1.Good.Name" xml:space="preserve">
+    <value>肉棒脸部按摩</value>
+  </data>
+  <data name="1.Good.Action" xml:space="preserve">
+    <value>他们掏出了自己的肉棒顶在你的脸上…</value>
+  </data>
+  <data name="1.Good.Description" xml:space="preserve">
+    <value>强盗们强迫你跪在他们面前，然后他们开始在你的脸上摩擦他们的肉棒。你只能看着他们用你的脸自慰，他们开始用他们的臭肉棒玷污你的脸。</value>
+  </data>
+  <data name="1.Good.Task" xml:space="preserve">
+    <value>准备好一小杯约 20 mL 的精液。将两根自慰棒吸在墙上合适高度位置，然后跪在前面，你必须在一边给一根肉棒口交的同时，一边给另一根手交。计时过半时将 10 mL 精液倒在你脸上，计时结束后再倒完剩下的。</value>
+  </data>
+  <data name="1.Crit.Name" xml:space="preserve">
+    <value>双人夹击</value>
+  </data>
+  <data name="1.Crit.Action" xml:space="preserve">
+    <value>他们一前一后夹住了你的身体…</value>
+  </data>
+  <data name="1.Crit.Description" xml:space="preserve">
+    <value>强盗兄弟开始猥亵你。他们的手开始刺激你的整个身体，强盗兄弟不遗余力地侵犯着你的身体......</value>
+  </data>
+  <data name="1.Crit.Task" xml:space="preserve">
+    <value>抚摸你整个身体的性感带。一边骑在一根肉棒上一边给一根肉棒口交。计时过半后，停止口交，但是仍需将肉棒含在口内。你开始专注刺激自己的乳头的同时，寸止至少一次。结束后饮下 10 mL 精液。</value>
+  </data>
+</root>
