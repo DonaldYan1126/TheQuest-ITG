@@ -1,0 +1,94 @@
+﻿@inject IStringLocalizer<Characters> CLocalizer
+@inject IStringLocalizer<Interface> Localizer
+
+<MudDialog>
+    <DialogContent>
+        <MudGrid Class="pa-4">
+            <MudItem xs="12" sm="6" md="3">
+                <MudCard Elevation="4">
+                    <MudCardMedia Image=@ClothesSrc />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@CLocalizer[$"{ContentID}.Clothes.Name"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Clothes.Description"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Clothes.Task"]</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="3">
+                <MudCard Elevation="4">
+                    <MudCardMedia Image=@Pass1Src />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@CLocalizer[$"{ContentID}.Pass1.Name"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Pass1.Description"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Pass1.Task"]</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="3">
+                <MudCard Elevation="4">
+                    <MudCardMedia Image=@Pass2Src />
+                    <MudCardContent>
+                        <MudText Typo="Typo.h5">@CLocalizer[$"{ContentID}.Pass2.Name"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Pass2.Description"]</MudText>
+                        <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Pass2.Task"]</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>            
+            <MudItem xs="12" sm="12" md="3">
+                <MudPaper Elevation="4" Class="pa-4">
+                    <MudText Typo="Typo.h5">[Special] @CLocalizer[$"{ContentID}.Special.Name"]</MudText>
+                    <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Special.Description"]</MudText>
+                    <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Special.Task"]</MudText>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="4">
+                <MudPaper Elevation="4" Class="pa-4">
+                    <MudText Typo="Typo.h5">@Localizer["Weak"] @CLocalizer[$"{ContentID}.Weak.Name"]</MudText>
+                    <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Weak.Task"]</MudText>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="4">
+                <MudPaper Elevation="4" Class="pa-4">
+                    <MudText Typo="Typo.h5">@Localizer["Good"] @CLocalizer[$"{ContentID}.Good.Name"]</MudText>
+                    <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Good.Task"]</MudText>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6" md="4">
+                <MudPaper Elevation="4" Class="pa-4">
+                    <MudText Typo="Typo.h5">@Localizer["Crit"] @CLocalizer[$"{ContentID}.Crit.Name"]</MudText>
+                    <MudText Typo="Typo.body2">@CLocalizer[$"{ContentID}.Crit.Task"]</MudText>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Disabled="@IsChooseDisable" Color="@Color" Variant="Variant.Filled" OnClick="Submit">@ButtonText</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string ClothesSrc { get; set; }
+
+    [Parameter]
+    public string Pass1Src { get; set; }
+
+    [Parameter]
+    public string Pass2Src { get; set; }
+
+    [Parameter]
+    public int ContentID { get; set; }
+
+    [Parameter]
+    public bool IsChooseDisable { get; set; }
+
+    [Parameter]
+    public string ButtonText { get; set; }
+
+    [Parameter]
+    public Color Color { get; set; }
+
+    private void Submit() => MudDialog.Close(DialogResult.Ok(true));
+}

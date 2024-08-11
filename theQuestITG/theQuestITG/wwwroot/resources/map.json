@@ -1,0 +1,222 @@
+{
+  "Ch1Map": [
+    {
+      "id": 0,
+      "x": 250,
+      "y": 507,
+      "type": "Start",
+      "connect": [ 1 ]
+    },
+    {
+      "id": 1,
+      "x": 258,
+      "y": 477,
+      "type": "Battle",
+      "connect": [ 2 ]
+    },
+    {
+      "id": 2,
+      "x": 259,
+      "y": 435,
+      "type": "Event",
+      "connect": [ 3 ]
+    },
+    {
+      "id": 3,
+      "x": 258,
+      "y": 395,
+      "type": "Battle",
+      "connect": [ 4, 17 ]
+    },
+    {
+      "id": 4,
+      "x": 225,
+      "y": 393,
+      "type": "Event",
+      "connect": [ 6 ]
+    },
+    {
+      "id": 5,
+      "x": 250,
+      "y": 80,
+      "type": "Boss",
+      "connect": [ 16, 30 ]
+    },
+    {
+      "id": 6,
+      "x": 178,
+      "y": 380,
+      "type": "Battle",
+      "connect": [ 7 ]
+    },
+    {
+      "id": 7,
+      "x": 152,
+      "y": 341,
+      "type": "Event",
+      "connect": [ 8, 12 ]
+    },
+    {
+      "id": 8,
+      "x": 111,
+      "y": 307,
+      "type": "Battle",
+      "connect": [ 9 ]
+    },
+    {
+      "id": 9,
+      "x": 87,
+      "y": 271,
+      "type": "Battle",
+      "connect": [ 10 ]
+    },
+    {
+      "id": 10,
+      "x": 87,
+      "y": 229,
+      "type": "Battle",
+      "connect": [ 11 ]
+    },
+    {
+      "id": 11,
+      "x": 84,
+      "y": 182,
+      "type": "Treasure",
+      "connect": [ 100 ]
+    },
+    {
+      "id": 12,
+      "x": 152,
+      "y": 294,
+      "type": "Battle",
+      "connect": [ 13 ]
+    },
+    {
+      "id": 13,
+      "x": 170,
+      "y": 250,
+      "type": "Event",
+      "connect": [ 14 ]
+    },
+    {
+      "id": 14,
+      "x": 190,
+      "y": 208,
+      "type": "Battle",
+      "connect": [ 15 ]
+    },
+    {
+      "id": 15,
+      "x": 192,
+      "y": 148,
+      "type": "Battle",
+      "connect": [ 16 ]
+    },
+    {
+      "id": 16,
+      "x": 259,
+      "y": 145,
+      "type": "Event",
+      "connect": [ 24 ]
+    },
+    {
+      "id": 17,
+      "x": 296,
+      "y": 393,
+      "type": "Battle",
+      "connect": [ 18 ]
+    },
+    {
+      "id": 18,
+      "x": 328,
+      "y": 380,
+      "type": "Event",
+      "connect": [ 19 ]
+    },
+    {
+      "id": 19,
+      "x": 360,
+      "y": 363,
+      "type": "Battle",
+      "connect": [ 20 ]
+    },
+    {
+      "id": 20,
+      "x": 366,
+      "y": 319,
+      "type": "Event",
+      "connect": [ 21 ]
+    },
+    {
+      "id": 21,
+      "x": 363,
+      "y": 252,
+      "type": "Event",
+      "connect": [ 22, 25 ]
+    },
+    {
+      "id": 22,
+      "x": 365,
+      "y": 200,
+      "type": "Battle",
+      "connect": [ 23 ]
+    },
+    {
+      "id": 23,
+      "x": 363,
+      "y": 145,
+      "type": "Event",
+      "connect": [ 24, 27 ]
+    },
+    {
+      "id": 24,
+      "x": 312,
+      "y": 145,
+      "type": "Event",
+      "connect": [ 100 ]
+    },
+    {
+      "id": 25,
+      "x": 304,
+      "y": 252,
+      "type": "Event",
+      "connect": [ 26 ]
+    },
+    {
+      "id": 26,
+      "x": 246,
+      "y": 255,
+      "type": "Treasure",
+      "connect": [ 100 ]
+    },
+    {
+      "id": 27,
+      "x": 400,
+      "y": 145,
+      "type": "Battle",
+      "connect": [ 28 ]
+    },
+    {
+      "id": 28,
+      "x": 443,
+      "y": 147,
+      "type": "Event",
+      "connect": [ 29 ]
+    },
+    {
+      "id": 29,
+      "x": 444,
+      "y": 117,
+      "type": "Treasure",
+      "connect": [ 100 ]
+    },
+    {
+      "id": 30,
+      "x": 251,
+      "y": 34,
+      "type": "Exit",
+      "connect": [ 100 ]
+    }
+  ]
+}
+

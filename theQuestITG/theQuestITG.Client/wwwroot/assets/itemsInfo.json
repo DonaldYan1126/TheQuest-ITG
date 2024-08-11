@@ -1,0 +1,28 @@
+{
+  "items":[
+    {
+      "id": 1,
+      "quote": false,
+      "effect": 0,
+      "usage": "no"
+    },
+    {
+      "id": 2,
+      "quote": true,
+      "effect": 0,
+      "usage": "no"
+    },
+    {
+      "id": 3,
+      "quote": false,
+      "effect": 2,
+      "usage": "battle-only"
+    },
+    {
+      "id": 4,
+      "quote": true,
+      "effect": 1,
+      "usage": "battle-only"
+    }
+  ]
+}
