@@ -67,7 +67,7 @@
 
 
 @code {
-    public List<Block> blocks;
+    public List<Block> blocks = new();
 
     public ItemNumberInfo itemCount = new();
     int nowOnBlock = 0;
@@ -80,6 +80,8 @@
         blocks = JsonSerializer.Deserialize<BlockList>(response).Ch1Map;
 
     }
+
+    // For temporary use, should be removed later.
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -102,6 +104,12 @@
         await JS.InvokeAsync<string>("localStorageHelper.setItem", "ItemCount", write);
     }
 
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="id">Unique identifier for the role, 0 - 30, boss is 5</param>
+    /// <param name="type">Shows the pla</param>
     public void MoveStep(int id, string type)
     {
         bool ok = false;
@@ -165,7 +173,7 @@
     private async void Battle()
     {
 
-        //Need to change!
+        //Need to be changed!
 
         int eid = 1;
         var parameters = new DialogParameters<BattleDialog>

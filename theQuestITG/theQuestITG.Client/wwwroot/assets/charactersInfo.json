@@ -3,62 +3,596 @@
     {
       "id": 1,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "chastity","1-sp" ],
+      "weak": {
+        "tags": [ "nipple" ],
+        "type": "common",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "anal" ],
+        "type": "question",
+        "answer":[
+          {
+            "type":"atk",
+            "value":1
+          }
+        ],
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "chastity-remove-t", "edge" ],
+        "type": "edge+-question",
+        "answer":[
+          {
+            "type":"lose"
+          }
+        ],
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ "anal" ],
+        "length": 2,
+        "conditional": true,
+        "effect": [
+          {
+            "type": "hp",
+            "value": 5
+          },
+          {
+            "round": 2,
+            "type": "skip"
+          }
+        ]
+      }
     },
     {
       "id": 2,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": ["2-sp"],
+      "weak": {
+        "tags": [ "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "CEI" ],
+        "type": "edge+",
+        "effect":[{
+          "type":"mana",
+          "value": -1
+        }],
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "oral"],
+        "type": "common",
+        "effect":[{
+          "type":"mana",
+          "value": -3
+        }],
+        "metronome": 70
+      },
+      "special": {
+        "tags": [ "CEI", "edge", "ruin", "limited" ],
+        "length": 1,
+        "conditional": true,
+        "effect": [
+          {
+            "type": "mana",
+            "value": 5
+          },
+          {
+            "round": 1,
+            "type": "skip"
+          }
+        ]
+      }
     },
     {
       "id": 3,
       "hp": 10,
-      "atk": 2
+      "atk": 2,
+      "tags": ["3-sp"],
+      "weak": {
+        "tags": [ "oral", "anal" ],
+        "type": "common",
+        "metronome": 40
+      },
+      "good": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 70
+      },
+      "crit": {
+        "tags": ["edge"],
+        "type": "edge+-question",
+        "answer":[
+          {
+            "type":"atk",
+            "value":1
+          }
+        ],
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ ],
+        "length": 1,
+        "conditional": true,
+        "effect": [
+          {
+            "type": "round",
+            "value": 1
+          },
+          {
+            "type": "atk",
+            "value": 10002
+          }
+        ]
+      }
     },
     {
       "id": 4,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "4-sp" ],
+      "weak": {
+        "tags": [ "oral", "hand" ],
+        "type": "common",
+        "metronome": 40
+      },
+      "good": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 60
+      },
+      "crit": {
+        "tags": [ "anal" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ ],
+        "length": 0,
+        "conditional": false,
+        "effect": [
+          {
+            "type": "enemy-penis-size",
+            "value": 1
+          },
+          {
+            "type": "ehp",
+            "value": -5
+          }
+        ]
+      }
     },
     {
       "id": 5,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "5-sp" ],
+      "weak": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 50
+      },
+      "good": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 100
+      },
+      "crit": {
+        "tags": [ "edge", "edge2+" ],
+        "type": "edge+",
+        "metronome": 100
+      },
+      "special": {
+        "tags": [ "c-oestrus", "edge"],
+        "length": 3,
+        "conditional": true,
+        "effect": [
+          {
+            "type": "hp",
+            "value": -5
+          },
+          {
+            "type": "oestrus-count",
+            "value": 3
+          },
+          {
+            "round": 1,
+            "type": "atk",
+            "value": 3
+          },
+          {
+            "round": 3,
+            "type": "atk",
+            "value": 3
+          }
+        ]
+      }
     },
     {
       "id": 6,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "6-sp" ],
+      "weak": {
+        "tags": [ "nipple" ],
+        "type": "common",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "anal","nipple" ],
+        "type": "common",
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "edge", "nipple" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ ],
+        "length": 4,
+        "conditional": false,
+        "effect": [
+          {
+            "round": 2,
+            "type": "eatk",
+            "value": -10002
+          },
+          {
+            "round": 2,
+            "type": "enemy-penis-size",
+            "value": 1
+          },
+          {
+            "round":2,
+            "type": "bpm",
+            "value": 20
+          },
+          {
+            "round": 4,
+            "type": "eatk",
+            "value": -10002
+          },
+          {
+            "round": 4,
+            "type": "enemy-penis-size",
+            "value": 1
+          },
+          {
+            "round":4,
+            "type": "bpm",
+            "value": 20
+          }
+        ]
+      }
     },
     {
       "id": 7,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "7-sp" ],
+      "weak": {
+        "tags": [ "oral", "edge" ],
+        "type": "edge",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+-question",
+        "answer":[
+          {
+            "type":"atk",
+            "value":1
+          }
+        ],
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "edge", "nipple", "anal" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ "anal", "oral"],
+        "duration": 10,
+        "length": 0,
+        "conditional": false,
+        "effect": [
+          {
+            "type": "ehp",
+            "value": -5
+          }
+        ]
+      }
     },
     {
       "id": 8,
       "hp": 15,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "8-sp" ],
+      "weak": {
+        "tags": [ "CEI", "edge" ],
+        "type": "edge",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "CEI", "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "ruin" ],
+        "type": "edge+-question",
+        "answer":[
+          {
+            "type":"next-atk",
+            "value":1
+          }
+        ],
+        "metronome": 0
+      },
+      "special": {
+        "tags": [ ],
+        "length": 5,
+        "conditional": true,
+        "effect": [
+          {
+            "type": "ehp",
+            "value": 5
+          },
+          {
+            "round":1,
+            "type":"atk",
+            "value":2
+          },
+          {
+            "round":3,
+            "type":"atk",
+            "value":2
+          },
+          {
+            "round":5,
+            "type":"atk",
+            "value":2
+          }
+        ]
+      }
     },
     {
       "id": 9,
       "hp": 20,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "9-sp", "chastity" ],
+      "weak": {
+        "tags": [ "anal", "nipple" ],
+        "type": "common",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [  ],
+        "type": "common",
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ ],
+        "type": "common",
+        "metronome": 6
+      },
+      "special": {
+        "tags": [ ],
+        "duration": 10,
+        "length": 0,
+        "conditional": false,
+        "effect": [
+          {
+            "type": "9-sp"
+          },
+          {
+            "round":1,
+            "type":"skip"
+          }
+        ]
+      }
     },
     {
       "id": 10,
       "hp": 20,
-      "atk": 2
+      "atk": 2,
+      "tags": [ "10-sp" ],
+      "weak": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "nipple", "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "anal" ],
+        "type": "common",
+        "metronome": 100
+      },
+      "special": {
+        "tags": [ "anal", "oral"],
+        "duration": 10,
+        "length": 5,
+        "conditional": true,
+        "effect": [
+          {
+            "round":1,
+            "type": "bpm",
+            "value": 30
+          },
+          {
+            "round":1,
+            "type":"atk",
+            "value":2
+          },
+          {
+            "round":2,
+            "type": "bpm",
+            "value": 30
+          },
+          {
+            "round":3,
+            "type": "bpm",
+            "value": 30
+          },
+          {
+            "round":3,
+            "type":"atk",
+            "value":2
+          },
+          {
+            "round":4,
+            "type": "bpm",
+            "value": 30
+          },
+          {
+            "round":5,
+            "type": "bpm",
+            "value": 30
+          },
+          {
+            "round":5,
+            "type":"atk",
+            "value":2
+          }
+        ]
+      }
     },
     {
       "id": 11,
       "hp": 10,
-      "atk": 3
+      "atk": 3,
+      "tags": [ "11-sp" ],
+      "weak": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "crit": {
+        "tags": [ "edge","oral", "anal" ],
+        "type": "edge+",
+        "metronome": 180
+      },
+      "special": {
+        "tags": [ ],
+        "length": 3,
+        "conditional": false,
+        "effect": [
+          {
+            "round":1,
+            "type": "hp",
+            "value": -2
+          },
+          {
+            "round":1,
+            "type": "rand",
+            "value": 2
+          },
+          {
+            "round":1,
+            "type": "atk",
+            "value": 10002
+          },
+          {
+            "round":3,
+            "type": "hp",
+            "value": -2
+          },
+          {
+            "round":3,
+            "type": "rand",
+            "value": 3
+          },
+          {
+            "round":3,
+            "type": "atk",
+            "value": 10003
+          }
+        ]
+      }
     },
     {
       "id": 12,
       "hp": 10,
-      "atk": 3
+      "atk": 3,
+      "tags": [ "12-sp" ],
+      "weak": {
+        "tags": [ "anal", "edge" ],
+        "type": "edge+",
+        "metronome": 0
+      },
+      "good": {
+        "tags": [ "edge" ],
+        "type": "edge+",
+        "metronome": 180
+      },
+      "crit": {
+        "tags": [ "edge", "oral", "anal" ],
+        "type": "common",
+        "metronome": 60
+      },
+      "special": {
+        "tags": [ ],
+        "length": 0,
+        "conditional": false,
+        "effect": [
+          {
+            "type": "hp",
+            "value": 5
+          },
+          {
+            "round":1,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":2,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":3,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":4,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":5,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":6,
+            "type":"bpm",
+            "value":40
+          },
+          {
+            "round":2,
+            "type":"skip"
+          }
+        ]
+      }
     }
   ]
 }

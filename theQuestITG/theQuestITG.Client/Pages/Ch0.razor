@@ -77,6 +77,12 @@
         }
     }
 
+
+    /// <summary>
+    /// Show character detail
+    /// </summary>
+    /// <param name="id">Unique identifier for the role, starting at 1</param>
+    /// <returns></returns>
     private async Task learnMore(int id)
     {
         var parameters = new DialogParameters<CharacterDetailDialog>
@@ -101,6 +107,10 @@
         }
     }
 
+    /// <summary>
+    /// Initialize the Character, should be added.
+    /// </summary>
+    /// <param name="id">Unique identifier for the role, starting at 1</param>
     private async void Chosen(int id)
     {
         Chose = true;

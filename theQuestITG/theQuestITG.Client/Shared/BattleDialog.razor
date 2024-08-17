@@ -75,8 +75,9 @@
                     </MudCollapse>
                     <MudCollapse Expanded="!myRound">
                         <MudPaper Class="pa-4">
-                            <MudButton Class="pa-4" OnClick="Finish">Finish</MudButton>
-                            <MudButton OnClick="Metronome">Start</MudButton>
+                            <MudButton OnClick="Finish">Finish</MudButton>
+                            <MudButton OnClick="StartMetronome">Start</MudButton>
+                            <MudProgressLinear Max="100" Min="0" Value="@metronome" />
                         </MudPaper>
                     </MudCollapse>
                 </MudItem>
@@ -209,7 +210,7 @@
 
     public bool isRendering = false, isInitialized = false, myRound = true;
 
-    public int id = 0, atk = 0, hp = 100, rand = 0, round = 1, maxHP = 100, maxEHP = 100;
+    public int id = 0, atk = 0, hp = 100, rand = 0, round = 1, maxHP = 100, maxEHP = 100, bpm = 0, metronome = 10;
 
     public bool OnGoing = true;
 
@@ -218,6 +219,8 @@
     public Enemy enemy = new();
 
     string Result = "Loading......";
+
+    Timer? timer;
 
     private TaskCompletionSource<bool> _buttonClickedTcs, _JSONLoadedTcs;
 
@@ -269,6 +272,37 @@
         maxHP = int.Parse(await JS.InvokeAsync<string>("localStorageHelper.getItem", "MaxHP"));
         var str = await JS.InvokeAsync<string>("localStorageHelper.getItem", "ItemCount");
         itemCount = JsonSerializer.Deserialize<ItemNumberInfo>(str).itemNumbers;
+    }
+
+    private async Task StartMetronome()
+    {
+        StopMetronome(); // 确保不会有多个定时器同时运行
+        if (bpm != 0)
+        {
+            var interval = 60000 / bpm;
+
+            timer = new Timer(async _ =>
+            {
+                // Play the sound
+                await JS.InvokeVoidAsync("playSound");
+
+                // Set progress bar to 100 when sound plays
+                metronome = 100;
+                StateHasChanged();
+
+                // Wait for a short moment, then set it back to 10
+                await Task.Delay(200);
+                metronome = 10;
+                StateHasChanged();
+            }, null, 0, interval);
+        }
+    }
+
+    private void StopMetronome()
+    {
+        timer?.Dispose();
+        metronome = 10;
+        StateHasChanged();
     }
 
     private async void MainBattle()
@@ -324,18 +358,21 @@
                 {
                     case 1:
                         tatk = enemy.atk[0];
+                        bpm = enemy.weak.metronome;
                         break;
 
                     case 2:
                         tatk = enemy.atk[1];
+                        bpm = enemy.good.metronome;
                         break;
 
                     case 3:
                         tatk = enemy.atk[2];
+                        bpm = enemy.crit.metronome;
                         break;
                 }
                 await WaitForButtonClickAsync();
-                await JS.InvokeVoidAsync("stopMetronome");
+                StopMetronome();
                 hp -= tatk;
                 if (hp > 0 && enemy.hp > 0) myRound = !myRound;
                 StateHasChanged();
@@ -344,11 +381,6 @@
         await JS.InvokeVoidAsync("localStorageHelper.setItem", "CharacterHP", hp);
         OnGoing = false;
         StateHasChanged();
-    }
-
-    private async void Metronome()
-    {
-        await JS.InvokeVoidAsync("startMetronome", enemy.weak.metronome);
     }
 
     private Task WaitForButtonClickAsync()
